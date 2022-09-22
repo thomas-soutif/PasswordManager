@@ -1,0 +1,6 @@
+PasswordsManager/bin/*
+PasswordsManager/obj/*
+PasswordsManager/passwords.db
+packages/*
+e_sqlite3.dll
+.vs/*
