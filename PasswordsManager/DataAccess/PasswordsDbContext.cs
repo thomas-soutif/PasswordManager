@@ -38,6 +38,22 @@ namespace PasswordsManager.DataAccess
             /*Current.Add<PasswordsManager.Model.Password>(new PasswordsManager.Model.Password { Id = 1, Login = "test", Name = "test", Pass = "test", Description = "Une description" });
             Current.Add<PasswordsManager.Model.PasswordUserAccount>(new PasswordsManager.Model.PasswordUserAccount { Id = 1, UserId = 2, PasswordId = 1 });
             Current.SaveChanges(); */
+
+            /* 
+            Model.Tag tag = new Model.Tag();
+            tag.Label = "Google";
+            tag.User = (Model.UserAccount) DataAccess.PasswordsDbContext.Current.UserAccounts.Find(1);
+            DataAccess.PasswordsDbContext.Current.Add(tag);
+            DataAccess.PasswordsDbContext.Current.SaveChanges();
+
+            Model.Tag prTag = (Model.Tag)DataAccess.PasswordsDbContext.Current.Tags.Find("Google");
+
+            Model.PasswordTag passwordTag = new Model.PasswordTag();
+            passwordTag.Password = DataAccess.PasswordsDbContext.Current.Passwords.Find(1);
+            passwordTag.TagLabel = "Google";
+            DataAccess.PasswordsDbContext.Current.Add(passwordTag);
+            DataAccess.PasswordsDbContext.Current.SaveChanges();
+            */
         }
 
         #endregion
