@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordsManager.Model;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -184,22 +185,10 @@ namespace PasswordsManager.ViewModels
             get
             {
                 
-                List<Model.PasswordUserAccount> list_passwordofThisAccount = DataAccess.PasswordsDbContext.Current.PasswordUserAccounts.Where(p => p.UserId == this.UserConnected.Id).ToList();
                 List<CustomPassword> list_password = new List<CustomPassword> ();
                 
-
-
-                foreach (Model.PasswordUserAccount element in list_passwordofThisAccount)
-                {
-                    Model.Password password = DataAccess.PasswordsDbContext.Current.Passwords.Find(element.PasswordId);
-                    if (password != null)
-                    {
-                        list_password.Add(new CustomPassword(password));
-                        
-                    }
-                    
-                }
-
+                this.UserConnected.GetPasswords().ForEach(p => list_password.Add(new CustomPassword(p)));
+                
                 if (this.ListFilterEntry != null)
                 {
                    

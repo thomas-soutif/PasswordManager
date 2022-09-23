@@ -30,5 +30,15 @@ namespace PasswordsManager.Model
         [InverseProperty(nameof(Tag.User))]
         public List<Tag> TagsBelong { get; set; }
 
+        public List<Password> GetPasswords()
+        {
+            List<Password> finalList = new List<Password>();
+            if (this.PasswordsUserAccountBelong != null)
+                this.PasswordsUserAccountBelong.ForEach(p => finalList.Add(p.Password));
+            
+            return finalList;
+  
+        }
+
     }
 }
