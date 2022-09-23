@@ -24,9 +24,11 @@ namespace PasswordsManager.Model
         public string Password { get; set; }
 
         [InverseProperty(nameof(PasswordUserAccount.User))]
-        public List<PasswordUserAccount> PasswordsBelong { get; set; }
+        public List<PasswordUserAccount> PasswordsUserAccountBelong { get; set; }
+
 
         [InverseProperty(nameof(Tag.User))]
         public List<Tag> TagsBelong { get; set; }
+
     }
 }
