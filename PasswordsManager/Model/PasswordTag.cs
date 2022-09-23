@@ -9,14 +9,14 @@ namespace PasswordsManager.Model
 {
     public class PasswordTag
     {
+
+
+        [ForeignKey(nameof(Password))]
         public int PasswordId { get; set; }
-
-        public string TagLabel { get; set; }
-
-        [ForeignKey(nameof(PasswordId))]
         public Password Password { get; set; }
 
-        [ForeignKey(nameof(TagLabel))]
+        [ForeignKey(nameof(Tag))]
+        public string TagLabel { get; set; }
         public Tag Tag { get; set; }
     }
 }

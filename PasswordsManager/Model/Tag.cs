@@ -10,7 +10,7 @@ namespace PasswordsManager.Model
         public string Label { get; set; }
         public int UserId { get; set; }
         [InverseProperty(nameof(PasswordTag.Tag))]
-        public List<PasswordTag> PasswordsBelong { get; set; }
+        public List<PasswordTag> PasswordTagsBelong { get; set; }
 
         [Required,ForeignKey(nameof(UserId))]
         public UserAccount User { get; set; }
