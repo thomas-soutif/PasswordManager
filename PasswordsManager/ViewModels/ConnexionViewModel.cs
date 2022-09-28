@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using PasswordsManager.ViewModel;
 
 namespace PasswordsManager.ViewModels
 {

@@ -1,38 +1,24 @@
 ﻿using PasswordsManager.Model;
+using PasswordsManager.Utils;
+using PasswordsManager.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
-
-namespace PasswordsManager.ViewModels
+namespace PasswordsManager.ViewModel
 {
-
-    // Pour la liste déroulante
-
-    public class ListFilterEntry
-    {
-        public string Name { get; set; }
-        public ListFilterEntry(string name)
-        {
-            Name = name;
-        }
-        public override string ToString()
-        {
-            return Name;
-        }
-    }
-
 
     class GestionnaryPasswordViewModel : BaseViewModel
     {
 
         private MainViewModel mainViewModel;
         private readonly CollectionView _filterEntries;
-        private string _filterEntry;
+        private ListFilter _filterPasswordsEntry;
 
         // Constructeur, dans lequel on a accès à l'instance du view modèle d'où l'on vient
         public GestionnaryPasswordViewModel(MainViewModel viewModel)
@@ -40,11 +26,12 @@ namespace PasswordsManager.ViewModels
             this.mainViewModel = viewModel;
 
             // On set les valeurs que l'on veut dans notre liste pour filter
-            IList<ListFilterEntry> list = new List<ListFilterEntry>();
-            list.Add(new ListFilterEntry("Nom"));
-            list.Add(new ListFilterEntry("Description"));
-            list.Add(new ListFilterEntry("Login"));
+            IList<ListFilter> list = new List<ListFilter>();
+            list.Add(new ListFilter("Nom",new SortBy("Name")));
+            list.Add(new ListFilter("Description",new SortBy("Description")));
+            list.Add(new ListFilter("Login",new SortBy("Login")));
             _filterEntries = new CollectionView(list);
+            
         }
 
         public CollectionView ListFilterEntries
@@ -52,13 +39,17 @@ namespace PasswordsManager.ViewModels
             get { return _filterEntries; }
         }
 
-        public string ListFilterEntry
+        public ListFilter ListFilterEntry
         {
-            get { return _filterEntry; }
+            get { return _filterPasswordsEntry; }
             set
             {
-                if (_filterEntry == value) return;
-                _filterEntry = value;
+                if (value == null) return;
+
+                IEnumerable<ListFilter> iEnumListFilter = ListFilterEntries.Cast<ListFilter>().Where(x => x.Name == value.Name);
+                if (iEnumListFilter.Count() > 0)
+                    _filterPasswordsEntry = value;
+
                 OnPropertyChanged("ListFilterEntry");
                 OnListFilterChanged();
             }
@@ -184,34 +175,10 @@ namespace PasswordsManager.ViewModels
         {
             get
             {
-                
                 List<CustomPassword> list_password = new List<CustomPassword> ();
-                
                 this.UserConnected.GetPasswords().ForEach(p => list_password.Add(new CustomPassword(p)));
-                
-                if (this.ListFilterEntry != null)
-                {
-                   
-                    // On trie en fonction du filtre
-                    
-
-                    if(this.ListFilterEntry == "Nom")
-                    {
-                       list_password.Sort((x, y) => x.Name.CompareTo(y.Name));
-                    }
-                    else if(this.ListFilterEntry == "Description")
-                    {
-                        list_password.Sort((x, y) => x.Description.CompareTo(y.Description));
-                    }
-                    else if(this.ListFilterEntry == "Login")
-                    {
-                        list_password.Sort((x, y) => x.Login.CompareTo(y.Login));
-                    }
-
-
-                }
-                
-
+                if (ListFilterEntry != null)
+                    list_password = ListFilterEntry.Sort(list_password);
                 return list_password;
             }
             set {; }
