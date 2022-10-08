@@ -19,7 +19,8 @@ namespace PasswordsManager.ViewModel
         private MainViewModel mainViewModel;
         private readonly CollectionView _filterEntries;
         private ListFilter _filterPasswordsEntry;
-
+        // TODO: To be changed, when import passphrase has been implemented
+        private const string passPhraseTemp = "licked48ca11shore01Gasp67spoilage09protons83Spelling75Lawyers36Quotas00Daimler";
         // Constructeur, dans lequel on a accès à l'instance du view modèle d'où l'on vient
         public GestionnaryPasswordViewModel(MainViewModel viewModel)
         {
@@ -75,7 +76,7 @@ namespace PasswordsManager.ViewModel
                 this.Login = password.Login;
                 this.Pass = password.Pass;
                 this.Description = password.Description;
-                for (int i = 0; i < password.Pass.Count(); i++)
+                for (int i = 0; i < new Utils.Crypto(passPhraseTemp).Decrypt(password.Pass).Count(); i++)
                 {
                     this.PassHide += "*";
                 }
@@ -204,12 +205,18 @@ namespace PasswordsManager.ViewModel
                 this.InsertError = "Vous devez au moins entrer un nom et un mot de passe.";
                 return;
             }
+
+            // We encrypt the password. Will change quickly, the passphrase will be generate for each user and import by them.
+            // TODO: To be changed when passphrase importing done.
+
+            string encryptPassword = new Utils.Crypto(passPhraseTemp).Encrypt(this.Pass);
+
             // On commence par ajouter le mot de passe dans la table Password
             Model.Password password_object = new Model.Password();
             password_object.Name = this.Name;
             password_object.Description = this.Description;
             password_object.Login = this.Login;
-            password_object.Pass = this.Pass;
+            password_object.Pass = encryptPassword;
             DataAccess.PasswordsDbContext.Current.Add<Model.Password>(password_object);
             DataAccess.PasswordsDbContext.Current.SaveChanges();
             // On ajoute ensuite le lien entre le mot de passe et l'utilisateur dans la table PasswordUserAccount
@@ -314,7 +321,7 @@ namespace PasswordsManager.ViewModel
                 return;
             }
             Model.Password object_find_password = DataAccess.PasswordsDbContext.Current.Passwords.Single((p => p.Id == PasswordSelected.Id));
-            this.PassShow = object_find_password.Pass;
+            this.PassShow = new Utils.Crypto(passPhraseTemp).Decrypt(object_find_password.Pass);
         }
 
         private void CopyPassword()
