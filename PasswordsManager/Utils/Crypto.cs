@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PasswordsManager.Utils
 {
-    public static class Crypto
+    public class Crypto
     {
         // This constant is used to determine the keysize of the encryption algorithm in bits.
         // We divide this by 8 within the code below to get the equivalent number of bytes.
@@ -15,9 +15,14 @@ namespace PasswordsManager.Utils
         // This constant determines the number of iterations for the password bytes generation function.
         private const int DerivationIterations = 1000;
 
-        private const string PassPhrase = "UneClePubliqueDeCryptage";
+        private string PassPhrase { get; set; }
 
-        public static string Encrypt(string plainText)
+        public Crypto(string passphrase)
+        {
+            PassPhrase = passphrase;
+
+        }
+        public string Encrypt(string plainText)
         {
             // Salt and IV is randomly generated each time, but is preprended to encrypted cipher text
             // so that the same Salt and IV values can be used when decrypting.  
@@ -54,7 +59,9 @@ namespace PasswordsManager.Utils
             }
         }
 
-        public static string Decrypt(string cipherText)
+
+
+        public string Decrypt(string cipherText)
         {
             // Get the complete stream of bytes that represent:
             // [32 bytes of Salt] + [32 bytes of IV] + [n bytes of CipherText]
@@ -103,4 +110,5 @@ namespace PasswordsManager.Utils
             return randomBytes;
         }
     }
+
 }
