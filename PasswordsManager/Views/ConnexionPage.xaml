@@ -3,7 +3,8 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:PasswordsManager.Views"
+      xmlns:local="clr-namespace:PasswordsManager"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="ConnexionPage">
@@ -12,11 +13,6 @@
         <SolidColorBrush x:Key="LabelStyle" Color="Blue"/>
         <Style TargetType="Border" x:Key="PageBackground">
             <Setter Property="Background" Value="Blue"/>
-        </Style>
-        <Style TargetType="TextBox" x:Key="Title">
-            <Setter Property="FontSize" Value="18"/>
-            <Setter Property="Foreground" Value="#4E87D4"/>
-            <Setter Property="FontFamily" Value="Trebuchet MS"/>
         </Style>
         <Style TargetType="PasswordBox" x:Key="PasswordTitle">
             <Setter Property="FontSize" Value="18"/>
@@ -31,6 +27,9 @@
             <Setter Property="Margin" Value="0,3,10,0"/>
             <Setter Property="Width" Value="100"/>
         </Style>
+
+        <Style BasedOn="{StaticResource MaterialDesignTextBoxCustom}" TargetType="{x:Type TextBox}"/>
+
     </Page.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -52,22 +51,28 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    
+                  
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"></ColumnDefinition>
                     <ColumnDefinition Width="Auto"></ColumnDefinition>
                     <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    
                 </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="2" Content="Pseudo:" HorizontalAlignment="Left" Style="{StaticResource Label}" />
-                <Label Grid.Row="2" Grid.Column="2" Content="Password:" HorizontalAlignment="Left" Style="{StaticResource Label}"/>
-                <TextBox Grid.Row="1" Grid.Column="3" TextWrapping="Wrap" Text="{Binding Pseudo }" Style="{StaticResource Title}" />
-                <TextBox Grid.Row="2" Grid.Column="3" Text="{Binding Password}"  Style="{StaticResource Title}" />
-                <Button Grid.Column="3" Grid.Row="3" Content="Se connecter" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="75" Command="{Binding CheckConnectionCommand  }"/>
-                <TextBox Grid.Row="4" Grid.Column="3" TextWrapping="Wrap" Grid.ColumnSpan="2"  BorderThickness="0" Text="{Binding Result_Connexion }"/>
+
+                <TextBox Margin="0, 0, 0, 30" Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding Pseudo }"
+                            materialDesign:HintAssist.Hint="Pseudo"
+                            materialDesign:HintAssist.HelperText="{Binding Result_Connexion }">
+      
+                </TextBox>
+                <TextBox Margin="0, 0, 0, 20" Grid.Row="3" Grid.Column="1" Text="{Binding Password}" 
+                         materialDesign:HintAssist.Hint="Password"
+                         materialDesign:HintAssist.HelperText="{Binding Result_Connexion }" />
+                <Button Grid.Row="4" Grid.Column="1" Content="Se connecter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Command="{Binding CheckConnectionCommand }"/>
+            
             </Grid>
         </GroupBox>
         <GroupBox Grid.Row="1" Grid.Column="3" Header="Inscription" HorizontalAlignment="Left" Height="206" Width="353">
@@ -94,7 +99,7 @@
                 <TextBox Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" Text="{Binding Password_Inscription }"/>
                 <TextBox Grid.Row="1" Grid.Column="4" TextWrapping="Wrap" Text="{Binding Name_Inscription }"/>
                 <TextBox Grid.Row="2" Grid.Column="4" TextWrapping="Wrap" Text="{Binding FirstName_Inscription }"/>
-                <Button Grid.Column="2" Grid.Row="3" Content="S'inscrire" HorizontalAlignment="Center" VerticalAlignment="Center"  Width="75" Command="{Binding RegisterCommand  }"/>
+                <Button Grid.Column="2" Grid.Row="3" Content="S'inscrire" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Command="{Binding RegisterCommand  }"/>
                 <TextBox Grid.Row="3" Grid.Column="3" TextWrapping="Wrap"  BorderThickness="0" Text="{Binding Result_Inscription }" Grid.ColumnSpan="2" Margin="0,0,10,0"/>
             </Grid>
         </GroupBox>
