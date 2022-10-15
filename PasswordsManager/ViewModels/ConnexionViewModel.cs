@@ -41,6 +41,11 @@ namespace PasswordsManager.ViewModels
             get { return new Commands.BaseCommand(CheckConnexion);  }
         }
 
+
+        public Commands.BaseCommand CreateAccountFormCommand
+        {
+            get { return new Commands.BaseCommand(CreateAccountForm); }
+        }
         public Commands.BaseCommand RegisterCommand
         {
 
@@ -140,6 +145,11 @@ namespace PasswordsManager.ViewModels
             
         }
 
+        private void CreateAccountForm()
+        {
+            mainViewModel.CurrentPage = Services.NavigationService.GetPage<RegisterPage, RegisterViewModel>(this.mainViewModel);
+           
+        }
 
 
 

@@ -28,6 +28,14 @@
             <Setter Property="Width" Value="100"/>
         </Style>
 
+        <Style BasedOn="{StaticResource MaterialDesignGroupBox}" x:Key="MaterialDesignGroupBox" TargetType="{x:Type GroupBox}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="9" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+        
+        </Style>
+
         <Style BasedOn="{StaticResource MaterialDesignTextBoxCustom}" TargetType="{x:Type TextBox}"/>
 
     </Page.Resources>
@@ -35,73 +43,93 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="20"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="Auto"></ColumnDefinition>
             <ColumnDefinition Width="*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-        
-        <GroupBox Grid.Row="1" Grid.Column="1" Header="Connection" HorizontalAlignment="Left" Height="206" Width="353">
+
+        <GroupBox Grid.Row="1" Grid.Column="1" Header="Connection" Height="Auto" Width="400"
+                  Style="{StaticResource MaterialDesignGroupBox}"
+                    materialDesign:ElevationAssist.Elevation="Dp7"
+                  >
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                          Kind="User"
+                          Height="32"
+                          Width="32"
+                          VerticalAlignment="Center" />
+                        <TextBlock
+                          Margin="8,0,0,0"
+                          VerticalAlignment="Center"
+                          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                          Text="{Binding}" />   
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    
-                  
+                   
                 </Grid.RowDefinitions>
+                
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    
                     
                 </Grid.ColumnDefinitions>
 
-                <TextBox Margin="0, 0, 0, 30" Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding Pseudo }"
+                <TextBox Margin="0, 10, 0, 30" Grid.Row="1" Grid.Column="1" Width="200" Text="{Binding Pseudo }"
                             materialDesign:HintAssist.Hint="Pseudo"
                             materialDesign:HintAssist.HelperText="{Binding Result_Connexion }">
       
                 </TextBox>
-                <TextBox Margin="0, 0, 0, 20" Grid.Row="3" Grid.Column="1" Text="{Binding Password}" 
+                
+                <TextBox Margin="0, 0, 0, 20" Grid.Row="2" Grid.Column="1" Width="200" Text="{Binding Password}" 
                          materialDesign:HintAssist.Hint="Password"
                          materialDesign:HintAssist.HelperText="{Binding Result_Connexion }" />
-                <Button Grid.Row="4" Grid.Column="1" Content="Se connecter" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" Command="{Binding CheckConnectionCommand }"/>
-            
+
+                <StackPanel Grid.Row="3" Grid.Column="1" >
+                   
+                    <Button Grid.Row="1" Grid.Column="1" Content="Se connecter" HorizontalAlignment="Center" 
+                        VerticalAlignment="Center" Width="120" Command="{Binding CheckConnectionCommand }"/>
+
+                    <Button x:Name="GitHubButton"
+                          HorizontalAlignment="Center"
+                          Command="{Binding CreateAccountFormCommand}"
+                          Style="{StaticResource MaterialDesignFlatButton}"
+                            Margin="0,10,0,0">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="ContactMailOutline"
+                                Margin="0,2,0,0"                         
+                            />
+                            <TextBlock Margin="8,0,0,0"
+                                 VerticalAlignment="Center"
+                                 Text="Créer un compte" />
+                        </StackPanel>
+                    </Button>
+
+
+
+
+                </StackPanel>
+                
+               
+                
+                    
             </Grid>
         </GroupBox>
-        <GroupBox Grid.Row="1" Grid.Column="3" Header="Inscription" HorizontalAlignment="Left" Height="206" Width="353">
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="Auto"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                    <ColumnDefinition Width="*"></ColumnDefinition>
-                </Grid.ColumnDefinitions>
-                <Label Grid.Row="1" Grid.Column="0" Content="Pseudo:" HorizontalAlignment="Left" Width="55"/>
-                <Label Grid.Row="2" Grid.Column="0" Content="Password:" HorizontalAlignment="Left" Width="68"/>
-                <Label Grid.Row="1" Grid.Column="3" Content="Nom:" HorizontalAlignment="Left" Width="55"/>
-                <Label Grid.Row="2" Grid.Column="3" Content="Prénom:" HorizontalAlignment="Left" Width="68"/>
-                <TextBox Grid.Row="1" Grid.Column="2" TextWrapping="Wrap" Text="{Binding Pseudo_Inscription }"/>
-                <TextBox Grid.Row="2" Grid.Column="2" TextWrapping="Wrap" Text="{Binding Password_Inscription }"/>
-                <TextBox Grid.Row="1" Grid.Column="4" TextWrapping="Wrap" Text="{Binding Name_Inscription }"/>
-                <TextBox Grid.Row="2" Grid.Column="4" TextWrapping="Wrap" Text="{Binding FirstName_Inscription }"/>
-                <Button Grid.Column="2" Grid.Row="3" Content="S'inscrire" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Command="{Binding RegisterCommand  }"/>
-                <TextBox Grid.Row="3" Grid.Column="3" TextWrapping="Wrap"  BorderThickness="0" Text="{Binding Result_Inscription }" Grid.ColumnSpan="2" Margin="0,0,10,0"/>
-            </Grid>
-        </GroupBox>
+       
     </Grid>
 </Page>

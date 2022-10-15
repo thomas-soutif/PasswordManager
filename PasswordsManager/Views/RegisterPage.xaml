@@ -1,0 +1,73 @@
+﻿<Page x:Class="PasswordsManager.ViewModels.RegisterPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:PasswordsManager.ViewModels"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="RegisterPage">
+    <Page.Resources>
+        <Style BasedOn="{StaticResource MaterialDesignTextBoxCustom}" TargetType="{x:Type TextBox}"/>
+        
+    </Page.Resources>
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="Auto"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+
+        </Grid.ColumnDefinitions>
+
+        <GroupBox Grid.Row="2"   Grid.Column="2" Header="Inscription">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    
+                </Grid.ColumnDefinitions>
+
+                <TextBox Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"  Text="{Binding Pseudo_Inscription }" Width="200"
+                         materialDesign:HintAssist.Hint="Pseudo"
+                         Margin="0, 0, 0, 30"
+                         />
+                <TextBox Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Password_Inscription }" Width="200"
+                         Margin="0, 0, 0, 30"
+                         materialDesign:HintAssist.Hint="Password"
+                         />
+                <TextBox Grid.Row="3" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Name_Inscription }" Width="200"
+                         Margin="0, 0, 0, 30"
+                         materialDesign:HintAssist.Hint="Nom"
+                         />
+                <TextBox Grid.Row="4" Grid.Column="1" TextWrapping="Wrap" Text="{Binding FirstName_Inscription }" Width="200"
+                         Margin="0, 0, 0, 20"
+                         materialDesign:HintAssist.Hint="Prénom"
+                         materialDesign:HintAssist.HelperText="{Binding Result_Inscription }"
+                         />
+                <Button Grid.Row="5" Grid.Column="1" Content="S'inscrire" HorizontalAlignment="Center" VerticalAlignment="Center" 
+                        Width="200" Command="{Binding RegisterCommand  }"/>
+            </Grid>
+        </GroupBox>
+
+
+
+
+    </Grid>
+</Page>
