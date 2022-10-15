@@ -17,6 +17,9 @@ interfaces and fonctionnalities to:
 - Save the list of passwords of the password manager to a text file
 - Filter the list of passwords by name / description / login
 
-Target framework : .NET Framework 4.6.2
-Database packages : EntityFramework (v 3.1.13) ; SqliteCore (v 3.1.13)
-Ui Framework : WPF
+## About
+**Target framework** : .NET Framework 4.6.2
+
+**Database packages** : EntityFramework (v 3.1.13) ; SqliteCore (v 3.1.13)
+
+**Ui Framework** : WPF
