@@ -8,6 +8,8 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="RegisterPage">
+
+    
     <Page.Resources>
         <Style BasedOn="{StaticResource MaterialDesignTextBoxCustom}" TargetType="{x:Type TextBox}"/>
 
@@ -39,14 +41,29 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
 
         </Grid.ColumnDefinitions>
-
+        
         <GroupBox Grid.Row="2"   Grid.Column="2" Header="Inscription" Height="Auto" Width="400"
                   Style="{StaticResource MaterialDesignGroupBox}"
             >
             <GroupBox.HeaderTemplate>
                 <DataTemplate>
-                    <StackPanel
-                        Orientation="Horizontal">
+                    <DockPanel>
+
+                        <Button HorizontalAlignment="Left"
+                                Margin="0,0,20,0"
+                                Command="{Binding DataContext.BackToConnexionPageCommand, RelativeSource={RelativeSource Mode=FindAncestor,AncestorType={x:Type GroupBox}} }"
+                                >
+
+                            <materialDesign:PackIcon
+                                Kind="ArrowLeft"
+                                Height="32"
+                                Width="32"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Left"
+                                
+                             />
+                        </Button>
+                        
                         <materialDesign:PackIcon
                           Kind="ContactMailOutline"
                           Height="32"
@@ -57,7 +74,10 @@
                           VerticalAlignment="Center"
                           Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
                           Text="{Binding}" />
-                    </StackPanel>
+
+                        
+                    </DockPanel>
+                    
                 </DataTemplate>
             </GroupBox.HeaderTemplate>
 

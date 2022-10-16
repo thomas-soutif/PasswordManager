@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PasswordsManager.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,6 +49,12 @@ namespace PasswordsManager.ViewModels
             get { return new Commands.BaseCommand(Register); }
         }
 
+        public Commands.BaseCommand BackToConnexionPageCommand
+        {
+            get { return new Commands.BaseCommand(BackToConnexionPage); }
+            set { SetProperty(value); }
+        }
+
         public void Register()
         {
             Model.UserAccount object_account = new Model.UserAccount();
@@ -84,6 +91,11 @@ namespace PasswordsManager.ViewModels
                 this.Result_Inscription = "Erreur lors de l'inscription. (Tout les champs sont obligatoires)";
 
             }
+        }
+
+        private void BackToConnexionPage()
+        {
+            mainViewModel.CurrentPage = Services.NavigationService.GetPage<ConnexionPage, ConnexionViewModel>(this.mainViewModel);
         }
     }
 }
