@@ -10,7 +10,19 @@
       Title="RegisterPage">
     <Page.Resources>
         <Style BasedOn="{StaticResource MaterialDesignTextBoxCustom}" TargetType="{x:Type TextBox}"/>
-        
+
+
+        <Style BasedOn="{StaticResource MaterialDesignGroupBox}" x:Key="MaterialDesignGroupBox" TargetType="{x:Type GroupBox}">
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="9" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+
+        </Style>
+
+
+
+
     </Page.Resources>
     <Grid>
 
@@ -28,7 +40,27 @@
 
         </Grid.ColumnDefinitions>
 
-        <GroupBox Grid.Row="2"   Grid.Column="2" Header="Inscription">
+        <GroupBox Grid.Row="2"   Grid.Column="2" Header="Inscription" Height="Auto" Width="400"
+                  Style="{StaticResource MaterialDesignGroupBox}"
+            >
+            <GroupBox.HeaderTemplate>
+                <DataTemplate>
+                    <StackPanel
+                        Orientation="Horizontal">
+                        <materialDesign:PackIcon
+                          Kind="ContactMailOutline"
+                          Height="32"
+                          Width="32"
+                          VerticalAlignment="Center" />
+                        <TextBlock
+                          Margin="8,0,0,0"
+                          VerticalAlignment="Center"
+                          Style="{StaticResource MaterialDesignSubtitle1TextBlock}"
+                          Text="{Binding}" />
+                    </StackPanel>
+                </DataTemplate>
+            </GroupBox.HeaderTemplate>
+
             <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -46,7 +78,7 @@
 
                 <TextBox Grid.Row="1" Grid.Column="1" TextWrapping="Wrap"  Text="{Binding Pseudo_Inscription }" Width="200"
                          materialDesign:HintAssist.Hint="Pseudo"
-                         Margin="0, 0, 0, 30"
+                         Margin="0, 10, 0, 30"
                          />
                 <TextBox Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Text="{Binding Password_Inscription }" Width="200"
                          Margin="0, 0, 0, 30"
