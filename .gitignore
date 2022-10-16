@@ -5,3 +5,4 @@ packages/*
 e_sqlite3.dll
 .vs/*
 some_code.txt
+extra/*
