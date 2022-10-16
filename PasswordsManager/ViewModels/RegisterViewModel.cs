@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace PasswordsManager.ViewModels
 {
@@ -77,6 +78,17 @@ namespace PasswordsManager.ViewModels
                 return;
 
             }
+            // Check if the user is already in the database
+            Model.UserAccount user = DataAccess.PasswordsDbContext.Current.UserAccounts.Where(u => u.Username == object_account.Username).FirstOrDefault();
+            if (user != null)
+            {
+                {
+                    this.Result_Inscription = "Ce compte  existe déjà";
+                    return;
+                }
+            }
+
+            
 
             try
             {
@@ -84,6 +96,8 @@ namespace PasswordsManager.ViewModels
                 DataAccess.PasswordsDbContext.Current.Add(object_account);
                 this.Result_Inscription = "Compte créé.";
                 DataAccess.PasswordsDbContext.Current.SaveChanges();
+                this.ClearAllField();
+                mainViewModel.CurrentPage = Services.NavigationService.GetPage<ConnexionPage, ConnexionViewModel>(this.mainViewModel);
             }
             catch (Exception e)
             {
@@ -96,6 +110,14 @@ namespace PasswordsManager.ViewModels
         private void BackToConnexionPage()
         {
             mainViewModel.CurrentPage = Services.NavigationService.GetPage<ConnexionPage, ConnexionViewModel>(this.mainViewModel);
+        }
+
+        private void ClearAllField()
+        {
+            this.Pseudo_Inscription = "";
+            this.Password_Inscription = "";
+            this.Name_Inscription = "";
+            this.FirstName_Inscription = "";
         }
     }
 }
