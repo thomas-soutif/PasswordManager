@@ -65,7 +65,7 @@ namespace PasswordsManager.ViewModels
 
             if (object_account.Name == null || object_account.FirstName == null || object_account.Username == null || object_account.Password == null)
             {
-                this.Result_Inscription = "Erreur lors de l'inscription. (Tout les champs sont obligatoires)";
+                this.Result_Inscription = "Tout les champs sont obligatoires";
                 return;
 
             }
@@ -73,7 +73,7 @@ namespace PasswordsManager.ViewModels
 
             if (object_account.Name.Length == 0 || object_account.FirstName.Length == 0 || object_account.Username.Length == 0 || object_account.Password.Length == 0)
             {
-                this.Result_Inscription = "Erreur lors de l'inscription. (Tout les champs sont obligatoires)";
+                this.Result_Inscription = "Tout les champs sont obligatoires";
                 return;
 
             }
@@ -88,7 +88,7 @@ namespace PasswordsManager.ViewModels
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                this.Result_Inscription = "Erreur lors de l'inscription. (Tout les champs sont obligatoires)";
+                this.Result_Inscription = "Erreur lors de la création du compte.";
 
             }
         }
