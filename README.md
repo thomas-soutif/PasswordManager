@@ -5,6 +5,7 @@ All the fonctionnality are almost done, the biggest work now is on the UI, I'm t
 
 I will make a documentation when I think the application can be use by everyone with safety and easy use.
 
+Material design open source code : https://github.com/MaterialDesignInXAML/MaterialDesignInXamlToolkit
 
 ## Current fonctionnality
 
