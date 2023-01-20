@@ -62,7 +62,9 @@ namespace PasswordsManager.ViewModels
             object_account.Name = Name_Inscription;
             object_account.FirstName = FirstName_Inscription;
             object_account.Username = Pseudo_Inscription;
-            object_account.Password = Password_Inscription;
+            // Hash the password to a SHA256 with the HashHelper class
+            object_account.Password = Utils.HashHelper.SHA256(Password_Inscription);
+
 
             if (object_account.Name == null || object_account.FirstName == null || object_account.Username == null || object_account.Password == null)
             {

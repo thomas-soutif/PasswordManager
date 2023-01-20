@@ -52,7 +52,8 @@ namespace PasswordsManager.ViewModels
             //Services.NavigationService.Close(this);
 
             // We charge the passwords datas in the User object that will be store in the next page
-            List<Model.UserAccount> list = DataAccess.PasswordsDbContext.Current.UserAccounts.Where(p => p.Username == this.Pseudo && p.Password == this.Password).Include(p => p.PasswordsUserAccountBelong).ThenInclude(p => p.Password).ToList();
+            // The passwords are compared with their hash in SHA256
+            List<Model.UserAccount> list = DataAccess.PasswordsDbContext.Current.UserAccounts.Where(p => p.Username == this.Pseudo && p.Password == Utils.HashHelper.SHA256(this.Password)).Include(p => p.PasswordsUserAccountBelong).ThenInclude(p => p.Password).ToList();
             
             if(list.Count > 0)
             {
