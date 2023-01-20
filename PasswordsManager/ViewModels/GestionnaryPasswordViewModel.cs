@@ -154,9 +154,9 @@ namespace PasswordsManager.ViewModel
             get { return new Commands.BaseCommand(UpdatePassword); }
         }
 
-        public Commands.BaseCommand UpdateInputPasswordCommand
+        public Commands.BaseCommand ModifyAllFieldCommand
         {
-            get { return new Commands.BaseCommand(UpdateInputPassword); }
+            get { return new Commands.BaseCommand(ModifyAllField); }
         }
 
         public Commands.BaseCommand CopyPasswordCommand
@@ -272,7 +272,7 @@ namespace PasswordsManager.ViewModel
             
         }
 
-        private void UpdateInputPassword()
+        private void ModifyAllField()
         {
             if (PasswordSelected == null)
             {
@@ -283,7 +283,7 @@ namespace PasswordsManager.ViewModel
             this.Description = PasswordSelected.Description;
             this.Login = this.PasswordSelected.Login;
             this.Id = this.PasswordSelected.Id;
-            this.Pass = this.PasswordSelected.Pass;
+            this.Pass = new Utils.Crypto(passPhraseTemp).Decrypt(this.PasswordSelected.Pass);
 
 
         }
@@ -300,10 +300,12 @@ namespace PasswordsManager.ViewModel
                 object_find_password.Name = this.Name;
                 object_find_password.Description = this.Description;
                 object_find_password.Login = this.Login;
-                object_find_password.Pass = this.Pass;
+                object_find_password.Pass = new Utils.Crypto(passPhraseTemp).Encrypt(this.Pass);
 
                 DataAccess.PasswordsDbContext.Current.SaveChanges();
+                this.ResetInput();
                 OnPropertyChanged(nameof(PasswordsList));
+
             }
             catch
             {
