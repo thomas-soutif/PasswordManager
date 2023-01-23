@@ -322,17 +322,17 @@ namespace PasswordsManager.ViewModel
             {
                 return;
             }
-            Model.Password object_find_password = DataAccess.PasswordsDbContext.Current.Passwords.Single((p => p.Id == PasswordSelected.Id));
-            this.PassShow = new Utils.Crypto(passPhraseTemp).Decrypt(object_find_password.Pass);
+            this.PassShow = decryptPassword(PasswordSelected.Id);
         }
+
+      
 
         private void CopyPassword()
         {
-            if(this.PassShow != null)
+            if (this.PasswordSelected != null)
             {
-                Clipboard.SetText(this.PassShow);
+                Clipboard.SetText(decryptPassword(PasswordSelected.Id));
             }
-            
         }
         private void CopyLogin()
         {
@@ -373,6 +373,12 @@ namespace PasswordsManager.ViewModel
             }
             
             
+        }
+        private string decryptPassword(int PasswordId)
+        {
+
+            Model.Password object_find_password = DataAccess.PasswordsDbContext.Current.Passwords.Single((p => p.Id == PasswordId));
+            return new Utils.Crypto(passPhraseTemp).Decrypt(object_find_password.Pass);
         }
     }
 }
